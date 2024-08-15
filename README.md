@@ -41,7 +41,7 @@ uvicorn app.main:app --reload
 
 *Запуск с логированием(в корне будет создан файл **logfile.log**)*
 ```bash
-uvicorn app.main:app --log-config /env/log.ini
+uvicorn app.main:app --log-config env/log.ini
 ```
 **Обратите внимание** на указанный путь к конфигурационному файлу `log.ini`. Он необходим для работы логирования событий!
 
