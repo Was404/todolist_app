@@ -23,7 +23,8 @@ class Task(Base):
     description = Column(String, index=True)
     completed = Column(Boolean, default=False)
 
-    # created_at = Column(String, index=True)
+    # created_at = Column(DateTime, server_default=func.now(tz=timezone.utc)) 
+    # TODO
 
     owner_id = Column(Integer, ForeignKey("users.id"))
 
