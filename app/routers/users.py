@@ -3,7 +3,9 @@ from sqlalchemy.orm import Session
 from typing import List
 from .. import schemas, crud, models
 from ..database import SessionLocal, engine
-
+"""
+Диспетчер запросов users
+"""
 models.Base.metadata.create_all(bind=engine)
 
 router = APIRouter()
@@ -19,6 +21,7 @@ def get_db():
 
 @router.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    """Метод создает пользователя по json запросу и возвращает"""
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -26,7 +29,8 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/users/", response_model=List[schemas.User])
-def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+def users_list(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    """Метод возвращает список пользователей"""
     users = crud.get_users(db, skip=skip, limit=limit)
     return users
 
