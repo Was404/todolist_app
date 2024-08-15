@@ -1,5 +1,9 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import case
 from . import models, schemas
+"""
+Здесь описаны методы работающие с базой данных  // Руководитель базой данных
+"""
 
 
 def get_user(db: Session, user_id: int):
@@ -25,8 +29,14 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 
-def get_tasks(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Task).offset(skip).limit(limit).all()
+def tasks_list(db: Session, skip: int = 0, limit: int = 100):
+    return (
+        db.query(models.Task)  # filter
+        .order_by(case([(models.Task.completed == True, 0)], else_=1))
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
 
 
 def get_task(db: Session, task_id: int):

@@ -8,7 +8,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
-    email = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True) 
     full_name = Column(String)
     hashed_password = Column(String)
 
@@ -22,6 +22,9 @@ class Task(Base):
     title = Column(String, index=True)
     description = Column(String, index=True)
     completed = Column(Boolean, default=False)
+
+    # created_at = Column(String, index=True)
+
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="tasks")

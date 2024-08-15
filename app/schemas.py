@@ -15,6 +15,8 @@ class TaskCreate(TaskBase):
 class Task(TaskBase):
     id: int
     owner_id: int
+    # completed: bool
+    # created_at: str  # когда была создана задача
 
     class Config:
         orm_mode = True
@@ -22,7 +24,7 @@ class Task(TaskBase):
 
 class UserBase(BaseModel):
     username: str
-    email: str
+    email: str  # нужна валидация данных Field(@mail\@bk\@gmail...) TODO
     full_name: Optional[str] = None
 
 
@@ -36,3 +38,7 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+# created_at: Optional[str]
+
