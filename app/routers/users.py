@@ -37,6 +37,7 @@ def users_list(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
 
 @router.get("/users/{user_id}", response_model=schemas.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):
+    """Метод возвращает выбранного пользователя по id"""
     db_user = crud.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -46,6 +47,7 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 @router.put("/users/{user_id}", response_model=schemas.User)
 def update_user(user_id: int, user: schemas.UserCreate,
                 db: Session = Depends(get_db)):
+    """Метод меняет информацию о пользователе и записывает её в бд"""
     db_user = crud.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -59,6 +61,7 @@ def update_user(user_id: int, user: schemas.UserCreate,
 
 @router.delete("/users/{user_id}", response_model=schemas.User)
 def delete_user(user_id: int, db: Session = Depends(get_db)):
+    """Метод удаляет выбранного пользователя"""
     db_user = crud.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")

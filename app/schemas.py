@@ -24,7 +24,7 @@ class Task(TaskBase):
 
 class UserBase(BaseModel):
     username: str
-    email: str  # нужна валидация данных Field(@mail\@bk\@gmail...) TODO
+    email: str 
     full_name: Optional[str] = None
 
 
@@ -38,7 +38,4 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
-
-
-# created_at: Optional[str]
 
