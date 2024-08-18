@@ -66,7 +66,8 @@ uvicorn app.main:app --log-config env/log.ini
 ASGI/WSGI подход
 
 ## Тесты 
-Используем pytest
+Автотесты, Pytest
+Хранятся в каталоге `tests`
 
 ## Примеры
 
