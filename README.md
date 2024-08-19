@@ -64,7 +64,39 @@ uvicorn app.main:app --log-config env/log.ini
 ## FastAPI
 
 ASGI/WSGI подход
-
+### Структура проекта 
+```
+.
+├── app
+│   ├── __init__.py
+│   ├── crud.py
+│   ├── database.py
+│   ├── main.py
+│   ├── models.py 
+│   ├── schemas.py 
+│   ├── utils.py
+│   ├── routers
+│       ├── __init__.py
+│       ├── tasks.py
+│       └── users.py
+│
+├── alembic
+│   └── env.py
+│
+├── env
+│   ├── alembic.ini
+│   └── log.ini
+│
+├── tests
+│   ├── conftest.py
+│   ├── test_main.py
+│   ├── test_tasks.py
+│   └── test_users.py
+│   
+├── README.md
+├── requirements.txt  
+'     
+```
 ## Тесты 
 Автотесты, Pytest
 Хранятся в каталоге `tests`
