@@ -1,13 +1,38 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-# import pytest
+from app.main import app
+from app.database import Base
+from fastapi.testclient import TestClient
+import pytest
 
-TEST_DATABASE_URL = "sqlite:///./test.db"  # Тестовая база данных
+# Создание тестовой базы данных
+TEST_DATABASE_URL = "sqlite:///./test.db"
 
-engine_test = create_engine(TEST_DATABASE_URL, connect_args={
-                                   "check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False,
-                            autoflush=False,
-                            bind=engine_test)
-Base = declarative_base()
+engine_test = create_engine(TEST_DATABASE_URL, 
+                            connect_args={"check_same_thread": False})
+TestingSessionLocal = sessionmaker(autocommit=False, 
+                                   autoflush=False, 
+                                   bind=engine_test)
+
+
+@pytest.fixture(scope="function", autouse=True)
+def override_get_db():
+    Base.metadata.create_all(bind=engine_test)
+    db = TestingSessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+        Base.metadata.drop_all(bind=engine_test)
+
+
+@pytest.fixture  # Убери это TODO
+def client():
+    def _get_test_db_override():
+        db = TestingSessionLocal()
+        try:
+            yield db
+        finally:
+            db.close()
+    app.dependency_overrides[get_db] = _get_test_db_override
+    return TestClient(app)
