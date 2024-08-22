@@ -1,5 +1,11 @@
 # ToDo List App
 
+> [!Note]
+[FastAPI](https://pypi.org/project/fastapi/) [SQLAlchemy](https://pypi.org/project/SQLAlchemy/)  [pytest](https://pypi.org/project/pytest/)
+[uvicorn](https://pypi.org/project/uvicorn/)
+
+
+
 ## Особенности
 
 >Приложение должно предоставлять REST API для выполнения CRUD операций с задачами и пользователями.
@@ -8,8 +14,8 @@
 
 ## To Do
 
-- [ ] Документация
-- [ ] Тесты
+- [x] Документация
+- [x] Тесты
 - [x] База данных клиентов
 - [x] Реализовать валидацию входящих данных
 - [x] Логирование действий (создание, обновление, удаление)
@@ -89,7 +95,6 @@ ASGI/WSGI подход
 │
 ├── tests
 │   ├── conftest.py
-│   ├── test_main.py
 │   ├── test_tasks.py
 │   └── test_users.py
 │   
@@ -98,42 +103,11 @@ ASGI/WSGI подход
 '     
 ```
 ## Тесты 
-Автотесты, Pytest
+**Pytest & FastAPI TestClient** 
+
 Хранятся в каталоге `tests`
 
-## Примеры
+Тесты `test_tasks.py` проверяют возможность CRUD операций с задачами, а `test_users.py` проверяют возможность CRUD операций с пользователями. 
 
-**Get** /users/ *users_list* response body:
-```json
-[
-    {
-    "username": "Cool enjoyer",
-    "email": "enjoyer@gmail.com",
-    "full_name": "Enjoer Collson Wats",
-    "id": 1,
-    "tasks": [
-        {
-        "title": "cook dinner",
-        "description": "Buy french chicken",
-        "completed": false,
-        "id": 1,
-        "owner_id": 1
-      },
-      {
-        "title": "Create tests",
-        "description": "Chat GPT to resolve",
-        "completed": false,
-        "id": 2,
-        "owner_id": 1
-      }
-    ]
-    },
-    {
-    "username": "string",
-    "email": "string@gmail.com",
-    "full_name": "Stringovich",
-    "id": 2,
-    "tasks": []
-    }
-]
-``` 
+Эти операции описаны в [API Эндпоинты](#api-эндпоинты)
+
