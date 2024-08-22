@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import case
+from sqlalchemy import desc
 from . import models, schemas
 """
 Здесь описаны методы работающие с базой данных  // Руководитель базой данных
@@ -30,9 +30,12 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 
 def tasks_list(db: Session, skip: int = 0, limit: int = 100):
+    if skip < 0 or limit <= 0:
+        raise ValueError("skip must be non-negative and limit must be positive")
+
     return (
-        db.query(models.Task)  # filter
-        .order_by(case([(models.Task.completed == True, 0)], else_=1))
+        db.query(models.Task)
+        .order_by(desc(models.Task.completed))
         .offset(skip)
         .limit(limit)
         .all()
