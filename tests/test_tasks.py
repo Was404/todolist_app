@@ -7,6 +7,7 @@ import pytest
 Описание тестов:
 
 - test_create_task: Создание тестовой задачи.
+- test_tasks_list: Проверяет возможность чтения списка задач
 - test_read_task: Проверяет возможность чтения информации о задаче.
 - test_update_task: Проверяет возможность обновления информации задачи.
 - test_delete_task: Проверяет возможность удаления задачи
@@ -45,10 +46,17 @@ def create_task(client, db_session):
 
 
 def test_create_task(client, db_session):
-    response = client.post("/tasks/?user_id=1", json={"title": "TEST TASK", "description": "string", "completed": "false"})
+    response = client.post("/tasks/?user_id=1", json={"title": "TEST TASK", 
+                                                      "description": "string", 
+                                                      "completed": "false"})
     assert response.status_code == 200
     assert response.json()["title"] == "TEST TASK"
    
+
+def test_tasks_list(client, db_session):
+    response = client.get("tasks/?skip=0&limit=10")
+    assert response.status_code == 200
+
 
 def test_read_task(client, db_session):
     response = client.get("/tasks/1")

@@ -7,6 +7,7 @@ import pytest
 Описание тестов:
 
 - test_create_user: Создание тестового пользователя.
+- test_users_list: Проверяет возможность чтения списка пользователей
 - test_read_user: Проверяет возможность чтения информации о пользователе.
 - test_update_user: Проверяет возможность обновления информации о пользователе.
 - test_delete_user: Проверяет возможность удаления пользователя
@@ -49,6 +50,12 @@ def test_create_user(client, db_session):
     response = client.post("/users/", json=user_data)
     assert response.status_code == 200
     assert response.json()["username"] == "TestUser"
+
+
+def test_users_list(client, db_session):
+    response = client.get("users/?skip=0&limit=10")
+    assert response.status_code == 200
+    assert response.json()
   
 
 def test_read_user(client, db_session):
