@@ -1,16 +1,10 @@
 # ToDo List App
 
-> [!Note]
-[FastAPI](https://pypi.org/project/fastapi/) [SQLAlchemy](https://pypi.org/project/SQLAlchemy/)  [pytest](https://pypi.org/project/pytest/)
-[uvicorn](https://pypi.org/project/uvicorn/)
-
-
-
 ## Особенности
 
 >Приложение должно предоставлять REST API для выполнения CRUD операций с задачами и пользователями.
 
-Реализованно на **FastAPI framework**.
+Реализованно на **[FastAPI framework](https://pypi.org/project/fastapi/)**.
 
 ## To Do
 
