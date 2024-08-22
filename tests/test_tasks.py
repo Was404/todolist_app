@@ -45,7 +45,7 @@ def create_task(client, db_session):
 
 
 def test_create_task(client, db_session):
-    response = client.post("/tasks/", json=task_data)
+    response = client.post("/tasks/?user_id=1", json={"title": "TEST TASK", "description": "string", "completed": "false"})
     assert response.status_code == 200
     assert response.json()["title"] == "TEST TASK"
    
@@ -61,7 +61,7 @@ def test_update_task(client, db_session):
                                             "description": "delete me", 
                                             "completed": "True"})
     assert response.status_code == 200
-    assert response.json()["completed"] == "true"
+    assert response.json()["completed"] == True
 
 
 def test_delete_task(client, db_session):
